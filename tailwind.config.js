@@ -7,13 +7,13 @@ export default {
   theme: {
     extend: {
       colors: {
-        teal: '#008080',
-        coral: '#FF6F61',
-        beige: '#FAF3E0',
-        charcoal: '#2C3E50',
-        lightCoral: '#FF7F72',
-        springGreen: '#00FA9A',
-        tomato: '#E74C3C',
+        purple: '#4A148C',
+        orange: '#FF7043',
+        lightOrange: '#FFA270',
+        white: '#FDFDFD',
+        darkGray: '#3E3E3E',
+        crimson: '#D32F2F',
+        limeGreen: '#81C784',
       },
     },
   },
