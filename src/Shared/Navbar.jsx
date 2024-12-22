@@ -5,7 +5,7 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false); // State to toggle menu
 
   return (
-    <nav className="bg-purple text-white px-6 py-4 shadow-lg">
+    <nav className="bg-purple text-white px-6 py-6 shadow-lg">
       <div className="container mx-auto flex items-center justify-between">
         {/* Website Logo */}
         <h1 className="text-2xl font-bold">
