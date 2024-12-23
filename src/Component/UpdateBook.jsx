@@ -1,18 +1,21 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import Swal from "sweetalert2";
+import { AuthContext } from "../Provider/AuthProvider"; // Assuming you have an AuthContext for user data
 
 const UpdateBook = () => {
   const { bookId } = useParams();
   const navigate = useNavigate();
-  console.log(bookId)
+  const { user } = useContext(AuthContext); // Access the authenticated user's email
 
   const [bookData, setBookData] = useState({
     image: "",
-    name: "",
+    title: "",
     author: "",
     category: "",
     rating: "",
+    email: user?.email || "", // Pre-fill the email with the user's email
   });
 
   const categories = ["Fiction", "Science", "History", "Fantasy"];
@@ -41,15 +44,28 @@ const UpdateBook = () => {
     e.preventDefault();
 
     try {
-      await axios.put(
+      const {data} = await axios.put(
         `${import.meta.env.VITE_API_URL}/books/${bookId}`,
         bookData
       );
-      alert("Book updated successfully!");
+      console.log(data)
+      if(data.modifiedCount>0){
+              Swal.fire({
+                  title: 'Success!',
+                  text: 'Book updated successfully!',
+                  icon: 'success',
+                  confirmButtonText: 'Close'
+                })
+            }
       navigate("/all-books"); // Redirect to All Books Page
     } catch (error) {
       console.error("Failed to update book:", error);
-      alert("Failed to update book. Please try again.");
+      Swal.fire({
+        title: 'Error!',
+        text: 'Failed to update book. Please try again.',
+        icon: 'error',
+        confirmButtonText: 'Close'
+      })
     }
   };
 
@@ -77,9 +93,9 @@ const UpdateBook = () => {
           </label>
           <input
             type="text"
-            id="name"
-            name="name"
-            value={bookData.name}
+            id="title"
+            name="title"
+            value={bookData.title}
             onChange={handleInputChange}
             className="border border-gray-300 rounded w-full p-2"
             required
@@ -136,6 +152,22 @@ const UpdateBook = () => {
             min="1.0"
             max="5.0"
             required
+          />
+        </div>
+
+        {/* Email Field (Read-only) */}
+        <div>
+          <label htmlFor="email" className="block font-medium">
+            Email (cannot be edited):
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={bookData.email}
+            onChange={handleInputChange}
+            className="border border-gray-300 rounded w-full p-2 bg-gray-100"
+            disabled
           />
         </div>
 

@@ -1,4 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
+import CategoryBooks from "../Component/CategoryBooks";
+import DetailsBook from "../Component/detailsBook";
 import Login from "../Component/Login";
 import Register from "../Component/Register";
 import UpdateBook from "../Component/UpdateBook";
@@ -27,7 +29,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: '/update-book/:bookId',
+        path: "/update-book/:bookId",
         element: <UpdateBook></UpdateBook>,
       },
       {
@@ -53,6 +55,18 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register></Register>,
+      },
+      {
+        path: "/category/:category",
+        element: <CategoryBooks></CategoryBooks>,
+      },
+      {
+        path: "details/:bookId",
+        element: (
+          <PrivetRoute>
+            <DetailsBook></DetailsBook>
+          </PrivetRoute>
+        ),
       },
     ],
   },
