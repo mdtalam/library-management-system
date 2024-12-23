@@ -1,12 +1,13 @@
 import Lottie from "lottie-react";
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import registerLottiData from '../assets/register.json';
 import { AuthContext } from "../Provider/AuthProvider";
 
 const Register = () => {
-    const {createNewUser,setUser} = useContext(AuthContext);
+    const {createNewUser,setUser,updateUserProfile} = useContext(AuthContext);
     const [errorMessage, setErrorMessage] = useState("");
+    const navigate = useNavigate();
 
     const handleRegister = event => {
         event.preventDefault();
@@ -32,6 +33,13 @@ const Register = () => {
           .then(result=>{
             const user = result.user;
             setUser(user)
+            updateUserProfile({ displayName: name, photoURL: photo })
+            .then(()=>{
+                navigate('/')
+            })
+            .catch((error)=>{
+                setErrorMessage(error.message)
+            })
           })
           .catch(error=>{
             setErrorMessage(error.message)

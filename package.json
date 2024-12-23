@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "axios": "^1.7.9",
+    "browser-image-compression": "^2.0.2",
     "firebase": "^11.1.0",
     "localforage": "^1.10.0",
     "lottie-react": "^2.4.0",
@@ -18,8 +20,11 @@
     "react-countup": "^6.5.3",
     "react-dom": "^18.3.1",
     "react-icons": "^5.4.0",
+    "react-rating-stars-component": "^2.2.0",
     "react-router-dom": "^7.1.0",
     "react-scroll-trigger": "^0.6.14",
+    "react-toastify": "^11.0.2",
+    "react-tooltip": "^5.28.0",
     "sort-by": "^1.2.0",
     "swiper": "^11.1.15"
   },

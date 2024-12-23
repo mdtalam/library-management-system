@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { Tooltip } from 'react-tooltip';
 import { AuthContext } from '../Provider/AuthProvider';
 
 const Navbar = () => {
@@ -78,11 +79,16 @@ const Navbar = () => {
                   <img
                     src={user?.photoURL || 'https://via.placeholder.com/40'}
                     alt="User Avatar"
-                    className="w-10 h-10 rounded-full"
+                    className="w-10 h-10 rounded-full cursor-pointer"
+                    data-tooltip-id="profileTooltip"
+                    data-tooltip-content={user?.displayName || "User Profile"}
                   />
-                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 p-2 bg-white text-purple text-sm font-medium rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    {user?.displayName || 'User'}
-                  </div>
+                  <Tooltip
+                  id="profileTooltip"
+                  place="bottom"
+                  effect="solid"
+                  className="bg-gray-800 text-white z-10 px-2 py-1 rounded"
+                />
                 </div>
                 <button
                   onClick={logOutUser}
@@ -184,13 +190,29 @@ const Navbar = () => {
             </>
           ) : (
             <li className="text-center">
-              <p className="mb-2">{user?.displayName || 'User'}</p>
-              <button
-                onClick={logOutUser}
-                className="bg-orange px-4 py-2 text-sm text-white rounded hover:bg-orange-dark transition duration-200"
-              >
-                Logout
-              </button>
+              <div className="flex flex-col-reverse md:flex-row justify-center gap-2 items-center space-x-3">
+                <div className="relative group">
+                  <img
+                    src={user?.photoURL || 'https://via.placeholder.com/40'}
+                    alt="User Avatar"
+                    className="w-10 h-10 rounded-full cursor-pointer"
+                    data-tooltip-id="profileTooltip"
+                    data-tooltip-content={user?.displayName || "User Profile"}
+                  />
+                  <Tooltip
+                  id="profileTooltip"
+                  place="bottom"
+                  effect="solid"
+                  className="bg-gray-800 text-white z-10 px-2 py-1 rounded"
+                />
+                </div>
+                <button
+                  onClick={logOutUser}
+                  className="bg-orange px-4 py-2 text-sm text-white rounded hover:bg-orange-dark transition duration-200"
+                >
+                  Logout
+                </button>
+              </div>
             </li>
           )}
         </ul>

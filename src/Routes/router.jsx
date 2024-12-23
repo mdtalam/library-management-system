@@ -1,45 +1,61 @@
-import {
-  createBrowserRouter
-} from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import Login from "../Component/Login";
 import Register from "../Component/Register";
+import UpdateBook from "../Component/UpdateBook";
 import MainLayout from "../Layout/MainLayout";
 import AddBook from "../Pages/AddBook";
 import AllBooks from "../Pages/AllBooks";
 import BorrowedBooks from "../Pages/BorrowedBooks";
 import Home from "../Pages/Home";
+import PrivetRoute from "./PrivetRoute";
 
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <MainLayout></MainLayout>,
-      children: [
-        {
-          path: "/",
-          element: <Home></Home>,
-        },
-        {
-          path: "/all-books",
-          element: <AllBooks></AllBooks>,
-        },
-        {
-          path: "/add-book",
-          element: <AddBook></AddBook>,
-        },
-        {
-          path: "/borrowed-books",
-          element: <BorrowedBooks></BorrowedBooks>,
-        },
-        {
-          path: "/login",
-          element: <Login></Login>,
-        },
-        {
-          path: "/register",
-          element: <Register></Register>
-        }
-      ]
-    },
-  ]);
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <MainLayout></MainLayout>,
+    children: [
+      {
+        path: "/",
+        element: <Home></Home>,
+      },
+      {
+        path: "/all-books",
+        element: (
+          <PrivetRoute>
+            <AllBooks></AllBooks>
+          </PrivetRoute>
+        ),
+      },
+      {
+        path: '/update-book/:bookId',
+        element: <UpdateBook></UpdateBook>,
+      },
+      {
+        path: "/add-book",
+        element: (
+          <PrivetRoute>
+            <AddBook></AddBook>
+          </PrivetRoute>
+        ),
+      },
+      {
+        path: "/borrowed-books",
+        element: (
+          <PrivetRoute>
+            <BorrowedBooks></BorrowedBooks>
+          </PrivetRoute>
+        ),
+      },
+      {
+        path: "/login",
+        element: <Login></Login>,
+      },
+      {
+        path: "/register",
+        element: <Register></Register>,
+      },
+    ],
+  },
+]);
 
-  export default router;
+export default router;

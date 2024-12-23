@@ -1,23 +1,36 @@
 import axios from "axios";
-import { useContext, useState } from "react";
-import { AuthContext } from "../Provider/AuthProvider"; // Import AuthContext
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-const AddBook = () => {
-  const { user } = useContext(AuthContext); // Access the authenticated user
+const UpdateBook = () => {
+  const { bookId } = useParams();
+  const navigate = useNavigate();
+  console.log(bookId)
+
   const [bookData, setBookData] = useState({
-    image: "", // Image URL instead of a file
+    image: "",
     name: "",
-    quantity: "",
     author: "",
     category: "",
-    description: "",
     rating: "",
-    email: user?.email || "", // Pre-fill with authenticated user's email
   });
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
   const categories = ["Fiction", "Science", "History", "Fantasy"];
+
+  useEffect(() => {
+    const fetchBookDetails = async () => {
+      try {
+        const { data } = await axios.get(
+          `${import.meta.env.VITE_API_URL}/books/${bookId}`
+        );
+        setBookData(data);
+      } catch (error) {
+        console.error("Failed to fetch book details:", error);
+      }
+    };
+
+    fetchBookDetails();
+  }, [bookId]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -27,37 +40,22 @@ const AddBook = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setIsSubmitting(true);
-
     try {
-      // Save book details, including the image URL, to the database
-      const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/books`, bookData);
-
-      console.log("Book Added Successfully:", data);
-      alert("Book added successfully!");
-
-      // Reset the form
-      setBookData({
-        image: "",
-        name: "",
-        quantity: "",
-        author: "",
-        category: "",
-        description: "",
-        rating: "",
-        email: user?.email || "",
-      });
+      await axios.put(
+        `${import.meta.env.VITE_API_URL}/books/${bookId}`,
+        bookData
+      );
+      alert("Book updated successfully!");
+      navigate("/all-books"); // Redirect to All Books Page
     } catch (error) {
-      console.error("Error saving book to the database:", error);
-      alert("Failed to add the book. Please try again.");
-    } finally {
-      setIsSubmitting(false);
+      console.error("Failed to update book:", error);
+      alert("Failed to update book. Please try again.");
     }
   };
 
   return (
     <div className="max-w-3xl mx-auto p-6 bg-white shadow-md rounded mt-8">
-      <h1 className="text-2xl font-bold text-center mb-6">Add a Book</h1>
+      <h1 className="text-2xl font-bold text-center mb-6">Update Book</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="image" className="block font-medium">
@@ -70,7 +68,6 @@ const AddBook = () => {
             value={bookData.image}
             onChange={handleInputChange}
             className="border border-gray-300 rounded w-full p-2"
-            placeholder="Enter image URL"
             required
           />
         </div>
@@ -83,20 +80,6 @@ const AddBook = () => {
             id="name"
             name="name"
             value={bookData.name}
-            onChange={handleInputChange}
-            className="border border-gray-300 rounded w-full p-2"
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="quantity" className="block font-medium">
-            Quantity:
-          </label>
-          <input
-            type="number"
-            id="quantity"
-            name="quantity"
-            value={bookData.quantity}
             onChange={handleInputChange}
             className="border border-gray-300 rounded w-full p-2"
             required
@@ -139,19 +122,6 @@ const AddBook = () => {
           </select>
         </div>
         <div>
-          <label htmlFor="description" className="block font-medium">
-            Short Description:
-          </label>
-          <textarea
-            id="description"
-            name="description"
-            value={bookData.description}
-            onChange={handleInputChange}
-            className="border border-gray-300 rounded w-full p-2"
-            required
-          />
-        </div>
-        <div>
           <label htmlFor="rating" className="block font-medium">
             Rating (1.0 - 5.0):
           </label>
@@ -172,13 +142,12 @@ const AddBook = () => {
         <button
           type="submit"
           className="w-full py-2 bg-purple text-white font-semibold rounded hover:bg-purple-dark transition"
-          disabled={isSubmitting}
         >
-          {isSubmitting ? "Submitting..." : "Add Book"}
+          Update Book
         </button>
       </form>
     </div>
   );
 };
 
-export default AddBook;
+export default UpdateBook;

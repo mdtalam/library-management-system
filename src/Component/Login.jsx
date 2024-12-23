@@ -1,9 +1,31 @@
 import Lottie from "lottie-react";
+import { useContext } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import loginLottiData from "../assets/login.json";
+import { AuthContext } from "../Provider/AuthProvider";
 
 const Login = () => {
+    const {logInUser,setUser} = useContext(AuthContext);
+
+    const handleLogin = event => {
+        event.preventDefault();
+        const form = event.target;
+        const email = form.email.value;
+        const password = form.password.value;
+        console.log(email,password)
+        logInUser(email,password)
+        .then(result=>{
+            const user = result.user;
+            setUser(user)
+        })
+        .catch(error=>{
+            console.log(error.message)
+        })
+
+    }
+
+
   return (
     <div className="">
       <div className="min-h-screen flex items-center justify-center flex-col lg:flex-row-reverse bg-gray-100 px-6">
@@ -11,7 +33,7 @@ const Login = () => {
           <h2 className="text-2xl font-bold text-center mb-6 text-purple">
             Login
           </h2>
-          <form>
+          <form onSubmit={handleLogin}>
             {/* Email Input */}
             <div className="mb-4">
               <label
@@ -22,6 +44,7 @@ const Login = () => {
               </label>
               <input
                 type="email"
+                name="email"
                 id="email"
                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple"
                 placeholder="Enter your email"
@@ -38,6 +61,7 @@ const Login = () => {
               </label>
               <input
                 type="password"
+                name="password"
                 id="password"
                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple"
                 placeholder="Enter your password"
