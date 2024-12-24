@@ -36,9 +36,10 @@ const OurServices = () => {
   return (
     <section className="py-12 mt-10">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center text-purple mb-8">
-          Our Services
+        <h2 className="text-3xl font-bold text-center text-purple mb-4">
+        Experience Exceptional Services
         </h2>
+        <p className="text-lg text-center mb-8">Discover tailored solutions, seamless support, and unmatched quality through our comprehensive and customer-focused services designed for you.</p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {services.map((service) => (
             <div

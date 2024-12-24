@@ -85,6 +85,9 @@ const DetailsBook = () => {
           text: "You have successfully borrowed this book.",
           icon: "success",
           confirmButtonText: "Close",
+        }).then(() => {
+          // Navigate to the borrowed books page
+          navigate("/borrowed-books");
         });
 
         // Update quantity
@@ -105,7 +108,7 @@ const DetailsBook = () => {
       console.error("Failed to borrow book:", error);
       Swal.fire({
         title: "Error!",
-        text: "An error occurred while borrowing the book. Please try again.",
+        text: error?.response?.data || "You have already borrowed this book",
         icon: "error",
         confirmButtonText: "Close",
       });

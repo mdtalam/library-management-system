@@ -8,9 +8,10 @@ const Insights = () => {
   return (
     <div className="py-12 mt-10 mb-10">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-8 text-purple">
+        <h2 className="text-3xl font-bold text-center mb-4 text-purple">
           Library Insights
         </h2>
+        <p className='text-lg text-center mb-8'>Discover fascinating library trends, book reviews, and expert recommendations to enrich your reading journey and expand your knowledge.</p>
         <ScrollTrigger onEnter={() => setCounterOn(true)} onExit={() => setCounterOn(false)}>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="bg-purple text-white p-6 rounded-lg shadow-lg text-center">
