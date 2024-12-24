@@ -33,22 +33,29 @@ const AddBook = () => {
     setIsSubmitting(true);
 
     try {
+      // Explicitly convert quantity and rating to numbers
+      const bookDataWithNumbers = {
+        ...bookData,
+        quantity: Number(bookData.quantity), // Ensure quantity is a number
+        rating: Number(bookData.rating), // Ensure rating is a number
+      };
+
       // Save book details, including the image URL, to the database
       const { data } = await axios.post(
         `${import.meta.env.VITE_API_URL}/books`,
-        bookData
+        bookDataWithNumbers
       );
-      if(data.insertedId){
+
+      if (data.insertedId) {
         Swal.fire({
-            title: 'Success!',
-            text: 'Book added successfully!',
-            icon: 'success',
-            confirmButtonText: 'Close'
-          })
+          title: "Success!",
+          text: "Book added successfully!",
+          icon: "success",
+          confirmButtonText: "Close",
+        });
       }
 
       console.log("Book Added Successfully:", data);
-      
 
       // Reset the form
       setBookData({
@@ -64,11 +71,11 @@ const AddBook = () => {
     } catch (error) {
       console.error("Error saving book to the database:", error);
       Swal.fire({
-        title: 'Error!',
-        text: 'Failed to add the book. Please try again.',
-        icon: 'error',
-        confirmButtonText: 'Cool'
-      })
+        title: "Error!",
+        text: "Failed to add the book. Please try again.",
+        icon: "error",
+        confirmButtonText: "Close",
+      });
     } finally {
       setIsSubmitting(false);
     }

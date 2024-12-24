@@ -77,6 +77,7 @@ const Navbar = () => {
               <div className="flex items-center space-x-3">
                 <div className="relative group">
                   <img
+                    referrerPolicy='no-referrer'
                     src={user?.photoURL || 'https://via.placeholder.com/40'}
                     alt="User Avatar"
                     className="w-10 h-10 rounded-full cursor-pointer"
@@ -193,6 +194,7 @@ const Navbar = () => {
               <div className="flex flex-col-reverse md:flex-row justify-center gap-2 items-center space-x-3">
                 <div className="relative group">
                   <img
+                    referrerPolicy='no-referrer'
                     src={user?.photoURL || 'https://via.placeholder.com/40'}
                     alt="User Avatar"
                     className="w-10 h-10 rounded-full cursor-pointer"
