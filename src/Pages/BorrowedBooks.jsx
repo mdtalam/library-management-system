@@ -3,8 +3,10 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../Provider/AuthProvider";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const BorrowedBooks = () => {
+  const axiosSecure = useAxiosSecure();
   const { user } = useContext(AuthContext);
   const [borrowedBooks, setBorrowedBooks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -16,8 +18,8 @@ const BorrowedBooks = () => {
       const fetchBorrowedBooks = async () => {
         setLoading(true);
         try {
-          const response = await axios.get(
-            `${import.meta.env.VITE_API_URL}/borrowed/${user.email}`
+          const response = await axiosSecure.get(
+            `/borrowed/${user.email}`
           );
           setBorrowedBooks(response.data);
         } catch (error) {

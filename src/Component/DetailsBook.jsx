@@ -9,6 +9,7 @@ const DetailsBook = () => {
   const { bookId } = useParams();
   const { user } = useContext(AuthContext);
   const [book, setBook] = useState(null);
+  const [borrowedBooks, setBorrowedBooks] = useState([]);
   const [returnDate, setReturnDate] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -32,8 +33,27 @@ const DetailsBook = () => {
         });
       }
     };
+
     fetchBookDetails();
   }, [bookId]);
+
+  // Fetch borrowed books for the user
+  useEffect(() => {
+    if (user) {
+      const fetchBorrowedBooks = async () => {
+        try {
+          const { data } = await axios.get(
+            `${import.meta.env.VITE_API_URL}/borrowed/${user.email}`
+          );
+          setBorrowedBooks(data);
+        } catch (error) {
+          console.error("Failed to fetch borrowed books:", error);
+        }
+      };
+
+      fetchBorrowedBooks();
+    }
+  }, [user]);
 
   // Handle borrow form submission
   const handleBorrow = async (e) => {
@@ -47,6 +67,16 @@ const DetailsBook = () => {
         confirmButtonText: "Log In",
       }).then(() => {
         navigate("/login");
+      });
+      return;
+    }
+
+    if (borrowedBooks.length >= 3) {
+      Swal.fire({
+        title: "Borrow Limit Exceeded!",
+        text: "You can only borrow up to 3 books at a time.",
+        icon: "error",
+        confirmButtonText: "Close",
       });
       return;
     }
@@ -79,6 +109,7 @@ const DetailsBook = () => {
         `${import.meta.env.VITE_API_URL}/borrow`,
         borrowData
       );
+
       if (data.borrowResult.insertedId) {
         Swal.fire({
           title: "Success!",
@@ -90,7 +121,8 @@ const DetailsBook = () => {
           navigate("/borrowed-books");
         });
 
-        // Update quantity
+        // Update state
+        setBorrowedBooks([...borrowedBooks, borrowData]);
         setBook((prevBook) => ({
           ...prevBook,
           quantity: prevBook.quantity - 1,
@@ -108,7 +140,7 @@ const DetailsBook = () => {
       console.error("Failed to borrow book:", error);
       Swal.fire({
         title: "Error!",
-        text: error?.response?.data || "You have already borrowed this book",
+        text: error?.response?.data?.message || "Failed to borrow the book.",
         icon: "error",
         confirmButtonText: "Close",
       });

@@ -40,24 +40,24 @@ const Login = () => {
       });
   };
 
-  const handleGoogleLogin = () => {
-    googleLogin()
-      .then((result) => {
-        const user = result.user;
-        setUser(user);
-        Swal.fire({
-          title: "Login Successful!",
-          text: `Welcome back, ${user?.displayName || "User"}`,
-          icon: "success",
-          confirmButtonText: "Proceed",
-        }).then(() => {
-          navigate(location?.state ? location.state : "/");
-        });
-      })
-      .catch((error) => {
-        setUserError({ ...userError, login: error.code });
+  const handleGoogleLogin = async () => {
+    try {
+      const result = await googleLogin();
+      const user = result.user;
+      setUser(user);
+      Swal.fire({
+        title: "Login Successful!",
+        text: `Welcome back, ${user?.displayName || "User"}`,
+        icon: "success",
+        confirmButtonText: "Proceed",
+      }).then(() => {
+        navigate(location?.state ? location.state : "/");
       });
+    } catch (error) {
+      setUserError((prevError) => ({ ...prevError, login: error.code }));
+    }
   };
+  
 
   return (
     <div className="">
