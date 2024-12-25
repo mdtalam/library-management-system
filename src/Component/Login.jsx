@@ -1,30 +1,63 @@
 import Lottie from "lottie-react";
-import { useContext } from "react";
-import { FaGoogle } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { FaEye, FaEyeSlash, FaGoogle } from "react-icons/fa"; // Import password eye icons
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2"; // Import SweetAlert2
 import loginLottiData from "../assets/login.json";
 import { AuthContext } from "../Provider/AuthProvider";
 
 const Login = () => {
-    const {logInUser,setUser} = useContext(AuthContext);
+  const { logInUser, setUser, googleLogin } = useContext(AuthContext);
+  const [userError, setUserError] = useState({});
+  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
+  const location = useLocation();
+  const navigate = useNavigate();
 
-    const handleLogin = event => {
-        event.preventDefault();
-        const form = event.target;
-        const email = form.email.value;
-        const password = form.password.value;
-        console.log(email,password)
-        logInUser(email,password)
-        .then(result=>{
-            const user = result.user;
-            setUser(user)
-        })
-        .catch(error=>{
-            console.log(error.message)
-        })
+  const handleLogin = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
 
-    }
+    // Reset previous error message when a new login attempt is made
+    setUserError({});
 
+    logInUser(email, password)
+      .then((result) => {
+        const user = result.user;
+        setUser(user);
+        Swal.fire({
+          title: "Login Successful!",
+          text: `Welcome back, ${user?.displayName || "User"}`,
+          icon: "success",
+          confirmButtonText: "Proceed",
+        }).then(() => {
+          navigate(location?.state ? location.state : "/");
+        });
+      })
+      .catch((error) => {
+        setUserError({ ...userError, login: error.code });
+      });
+  };
+
+  const handleGoogleLogin = () => {
+    googleLogin()
+      .then((result) => {
+        const user = result.user;
+        setUser(user);
+        Swal.fire({
+          title: "Login Successful!",
+          text: `Welcome back, ${user?.displayName || "User"}`,
+          icon: "success",
+          confirmButtonText: "Proceed",
+        }).then(() => {
+          navigate(location?.state ? location.state : "/");
+        });
+      })
+      .catch((error) => {
+        setUserError({ ...userError, login: error.code });
+      });
+  };
 
   return (
     <div className="">
@@ -52,7 +85,7 @@ const Login = () => {
             </div>
 
             {/* Password Input */}
-            <div className="mb-4">
+            <div className="mb-4 relative">
               <label
                 htmlFor="password"
                 className="block text-gray-700 font-medium mb-2"
@@ -60,13 +93,28 @@ const Login = () => {
                 Password
               </label>
               <input
-                type="password"
+                type={showPassword ? "text" : "password"} // Toggle input type based on state
                 name="password"
                 id="password"
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple"
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple pr-12" // Add padding-right for the icon
                 placeholder="Enter your password"
               />
+              <button
+                type="button"
+                className="absolute top-[52px] right-4 transform -translate-y-1/2"
+                onClick={() => setShowPassword(!showPassword)} // Toggle password visibility
+              >
+                {showPassword ? (
+                  <FaEyeSlash className="text-gray-600" />
+                ) : (
+                  <FaEye className="text-gray-600" />
+                )}
+              </button>
             </div>
+
+            {userError.login && (
+              <p className="text-crimson text-sm">{userError.login}</p>
+            )}
 
             <div className="text-start mb-4">
               <button
@@ -87,7 +135,10 @@ const Login = () => {
           </form>
 
           {/* Google Login Button */}
-          <button className="w-full flex items-center justify-center bg-orange text-white py-2 px-4 rounded-lg hover:bg-orange-dark transition duration-200 mb-4">
+          <button
+            onClick={handleGoogleLogin}
+            className="w-full flex items-center justify-center bg-orange text-white py-2 px-4 rounded-lg hover:bg-orange-dark transition duration-200 mb-4"
+          >
             <FaGoogle className="mr-2" />
             Login with Google
           </button>

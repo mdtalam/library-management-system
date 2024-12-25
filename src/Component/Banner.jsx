@@ -11,6 +11,7 @@ import 'swiper/css/pagination';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 
 // import image
+import { useNavigate } from 'react-router-dom';
 import sliderImg1 from '../assets/img1.jpg';
 import sliderImg2 from '../assets/img2.jpg';
 import sliderImg3 from '../assets/img3.jpg';
@@ -18,6 +19,7 @@ import sliderImg4 from '../assets/img4.jpg';
 import sliderImg5 from '../assets/img5.jpg';
 
 const Banner = () => {
+    const navigate = useNavigate();
   return (
     <div className="relative">
       <Swiper
@@ -66,7 +68,9 @@ const Banner = () => {
             <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
             <h2 className="text-3xl font-bold z-10">Manage Your Borrowing</h2>
             <p className="text-xl mt-4 z-10">Easily track your borrowed books and due dates.</p>
-            <button className="mt-6 bg-orange text-white px-6 py-2 rounded-lg hover:bg-orange-dark z-10">
+            <button 
+            onClick={() => navigate("/borrowed-books")}
+            className="mt-6 bg-orange text-white px-6 py-2 rounded-lg hover:bg-orange-dark z-10">
               My Borrowed Books
             </button>
           </div>
@@ -85,7 +89,9 @@ const Banner = () => {
             <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
             <h2 className="text-3xl font-bold z-10">Add Your Books</h2>
             <p className="text-xl mt-4 z-10">Share your collection with others and contribute to the library.</p>
-            <button className="mt-6 bg-orange text-white px-6 py-2 rounded-lg hover:bg-orange-dark z-10">
+            <button
+            onClick={() => navigate("/add-book")}
+            className="mt-6 bg-orange text-white px-6 py-2 rounded-lg hover:bg-orange-dark z-10">
               Add a Book
             </button>
           </div>
@@ -123,7 +129,9 @@ const Banner = () => {
             <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
             <h2 className="text-3xl font-bold z-10">Join Our Community</h2>
             <p className="text-xl mt-4 z-10">Become a member and enjoy exclusive benefits.</p>
-            <button className="mt-6 bg-orange text-white px-6 py-2 rounded-lg hover:bg-orange-dark z-10">
+            <button 
+            onClick={() => navigate("/register")}
+            className="mt-6 bg-orange text-white px-6 py-2 rounded-lg hover:bg-orange-dark z-10">
               Sign Up Now
             </button>
           </div>

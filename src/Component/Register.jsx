@@ -1,53 +1,108 @@
 import Lottie from "lottie-react";
 import { useContext, useState } from "react";
+import { FaGoogle } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import registerLottiData from '../assets/register.json';
+import Swal from "sweetalert2"; // Import SweetAlert2
+import registerLottiData from "../assets/register.json";
 import { AuthContext } from "../Provider/AuthProvider";
 
 const Register = () => {
-    const {createNewUser,setUser,updateUserProfile} = useContext(AuthContext);
-    const [errorMessage, setErrorMessage] = useState("");
-    const navigate = useNavigate();
+  const { createNewUser, setUser, updateUserProfile, googleLogin, logOutUser } =
+    useContext(AuthContext);
+  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
 
-    const handleRegister = event => {
-        event.preventDefault();
-        const form = event.target;
-        const name = form.name.value;
-        const email = form.email.value;
-        const photo = form.photo.value;
-        const password = form.password.value;
-        console.log(email,password,name,photo)
+  const handleRegister = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const photo = form.photo.value;
+    const password = form.password.value;
 
-        if (password.length < 6) {
-            setErrorMessage("Password should be 6 characters or longer");
-            return;
-          }
+    // Reset previous error message when a new registration attempt is made
+    setErrorMessage("");
 
-          const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
-          if (!passwordRegex.test(password)) {
-            setErrorMessage("Include at least one uppercase letter and lowercase letter");
-            return;
-          }
-
-          createNewUser(email,password)
-          .then(result=>{
-            const user = result.user;
-            setUser(user)
-            updateUserProfile({ displayName: name, photoURL: photo })
-            .then(()=>{
-                navigate('/')
-            })
-            .catch((error)=>{
-                setErrorMessage(error.message)
-            })
-          })
-          .catch(error=>{
-            setErrorMessage(error.message)
-          })
-
-
-
+    // Basic password validation
+    if (password.length < 6) {
+      setErrorMessage("Password should be 6 characters or longer");
+      return;
     }
+
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+    if (!passwordRegex.test(password)) {
+      setErrorMessage(
+        "Include at least one uppercase letter and lowercase letter"
+      );
+      return;
+    }
+
+    // Create new user
+    createNewUser(email, password)
+      .then((result) => {
+        const user = result.user;
+        setUser(user);
+
+        // Update user profile with name and photo URL
+        updateUserProfile({ displayName: name, photoURL: photo })
+          .then(() => {
+            // Show success message after registration
+            Swal.fire({
+              title: "Registration Successful!",
+              text: `Welcome, ${user?.displayName}`,
+              icon: "success",
+              confirmButtonText: "Proceed to Login",
+            }).then(() => {
+              // Log out the user immediately after registration
+              logOutUser()
+                .then(() => {
+                  // Redirect to login page after logging out
+                  navigate("/login");
+                })
+                .catch((error) => {
+                  setErrorMessage(error.message);
+                });
+            });
+          })
+          .catch((error) => {
+            setErrorMessage(error.message);
+          });
+      })
+      .catch((error) => {
+        setErrorMessage(error.message);
+      });
+  };
+
+  const handleGoogleLogin = () => {
+    googleLogin()
+      .then((result) => {
+        const user = result.user;
+        setUser(user); // Update the user in the context
+  
+        // Show success message
+        Swal.fire({
+          title: "Login Successful!",
+          text: `Welcome, ${user?.displayName}!`,
+          icon: "success",
+          confirmButtonText: "Proceed",
+        }).then(() => {
+          // Navigate to home page after showing the success message
+          navigate("/");
+        });
+      })
+      .catch((error) => {
+        // Display error message
+        setErrorMessage(error.message);
+        Swal.fire({
+          title: "Error!",
+          text: error.message,
+          icon: "error",
+          confirmButtonText: "Close",
+        });
+      });
+  };
+  
+
   return (
     <div>
       <div className="min-h-screen flex items-center justify-center flex-col lg:flex-row-reverse bg-gray-100 py-10">
@@ -124,7 +179,9 @@ const Register = () => {
               />
             </div>
             {errorMessage && (
-              <label className="label text-red-500 text-sm">{errorMessage}</label>
+              <label className="label text-red-500 text-sm">
+                {errorMessage}
+              </label>
             )}
 
             {/* Register Button */}
@@ -136,6 +193,15 @@ const Register = () => {
             </button>
           </form>
 
+          {/* Google Login Button */}
+          <button
+            onClick={handleGoogleLogin}
+            className="w-full flex items-center justify-center bg-orange text-white py-2 px-4 rounded-lg hover:bg-orange-dark transition duration-200 mb-4"
+          >
+            <FaGoogle className="mr-2" />
+            Login with Google
+          </button>
+
           {/* Redirect to Login */}
           <p className="text-center text-gray-600">
             Already have an account?{" "}
@@ -146,7 +212,7 @@ const Register = () => {
         </div>
         <div className="divider lg:divider-horizontal py-32 px-10"></div>
         <div>
-            <Lottie animationData={registerLottiData}></Lottie>
+          <Lottie animationData={registerLottiData}></Lottie>
         </div>
       </div>
     </div>
