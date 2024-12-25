@@ -5,12 +5,15 @@ import { useNavigate } from "react-router-dom";
 
 const AllBooks = () => {
   const [books, setBooks] = useState([]);
+  const [filteredBooks, setFilteredBooks] = useState([]);
   const [viewMode, setViewMode] = useState("card"); // Added state to toggle views
+  const [showAvailable, setShowAvailable] = useState(false); // State to track the filter
   const navigate = useNavigate();
 
   const getAllBooks = async () => {
     const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/books`);
     setBooks(data);
+    setFilteredBooks(data); // Initially show all books
   };
 
   useEffect(() => {
@@ -20,6 +23,18 @@ const AllBooks = () => {
   // Handle dropdown change for view mode
   const handleViewChange = (e) => {
     setViewMode(e.target.value);
+  };
+
+  // Filter books based on availability (quantity > 0)
+  const handleShowAvailable = () => {
+    setShowAvailable((prev) => !prev); // Toggle filter state
+    if (!showAvailable) {
+      // Show only books with quantity > 0
+      setFilteredBooks(books.filter((book) => book.quantity > 0));
+    } else {
+      // Show all books
+      setFilteredBooks(books);
+    }
   };
 
   return (
@@ -37,14 +52,24 @@ const AllBooks = () => {
           </select>
         </div>
 
+        {/* Filter Button for Available Books */}
+        <div className="mb-6">
+          <button
+            onClick={handleShowAvailable}
+            className="px-4 py-2 bg-green-500 text-white font-semibold rounded"
+          >
+            {showAvailable ? "Show All Books" : "Show Available Books"}
+          </button>
+        </div>
+
         <h1 className="text-2xl font-bold text-center mb-6">
-          All Books: {books.length}
+          All Books: {filteredBooks.length}
         </h1>
 
         {/* Conditional Rendering of Card View or Table View */}
         {viewMode === "card" ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {books.map((book) => (
+            {filteredBooks.map((book) => (
               <div key={book._id} className="border p-4 shadow rounded">
                 <img
                   src={book.image}
@@ -90,7 +115,7 @@ const AllBooks = () => {
                 </tr>
               </thead>
               <tbody>
-                {books.map((book) => (
+                {filteredBooks.map((book) => (
                   <tr key={book._id}>
                     <td className="border px-4 py-2">{book.title}</td>
                     <td className="border px-4 py-2">{book.author}</td>
