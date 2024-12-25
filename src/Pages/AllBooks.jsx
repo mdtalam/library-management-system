@@ -92,7 +92,7 @@ const AllBooks = () => {
                   <span className="text-gray-600">({book.rating})</span>
                 </div>
                 <button
-                  className={`font-semibold py-1 px-4 rounded transition ${
+                  className={`font-semibold w-full py-1 px-4 rounded transition ${
                     book.email === user?.email
                       ? "bg-purple text-white hover:bg-purple-dark"
                       : "bg-gray-300 text-gray-500 cursor-not-allowed"
