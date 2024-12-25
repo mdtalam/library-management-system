@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import CategoryBooks from "../Component/CategoryBooks";
 import DetailsBook from "../Component/detailsBook";
+import ErrorPage from "../Component/ErrorPage";
 import Login from "../Component/Login";
 import Register from "../Component/Register";
 import UpdateBook from "../Component/UpdateBook";
@@ -69,6 +70,10 @@ const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: "*",
+    element: <ErrorPage></ErrorPage>
   },
 ]);
 
