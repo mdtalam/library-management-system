@@ -1,38 +1,38 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ReactStars from "react-rating-stars-component";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../Provider/AuthProvider";
 
 const AllBooks = () => {
   const [books, setBooks] = useState([]);
+  const { user } = useContext(AuthContext);
   const [filteredBooks, setFilteredBooks] = useState([]);
-  const [viewMode, setViewMode] = useState("card"); // Added state to toggle views
-  const [showAvailable, setShowAvailable] = useState(false); // State to track the filter
+  const [viewMode, setViewMode] = useState("card");
+  const [showAvailable, setShowAvailable] = useState(false);
   const navigate = useNavigate();
 
   const getAllBooks = async () => {
     const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/books`);
     setBooks(data);
-    setFilteredBooks(data); // Initially show all books
+    setFilteredBooks(data);
   };
 
   useEffect(() => {
     getAllBooks();
   }, []);
 
-  // Handle dropdown change for view mode
+  
   const handleViewChange = (e) => {
     setViewMode(e.target.value);
   };
 
-  // Filter books based on availability (quantity > 0)
+  
   const handleShowAvailable = () => {
-    setShowAvailable((prev) => !prev); // Toggle filter state
+    setShowAvailable((prev) => !prev);
     if (!showAvailable) {
-      // Show only books with quantity > 0
       setFilteredBooks(books.filter((book) => book.quantity > 0));
     } else {
-      // Show all books
       setFilteredBooks(books);
     }
   };
@@ -92,8 +92,16 @@ const AllBooks = () => {
                   <span className="text-gray-600">({book.rating})</span>
                 </div>
                 <button
-                  className="mt-4 w-full bg-purple text-white font-semibold py-2 rounded hover:bg-purple-dark transition"
-                  onClick={() => navigate(`/update-book/${book._id}`)}
+                  className={`font-semibold py-1 px-4 rounded transition ${
+                    book.email === user?.email
+                      ? "bg-purple text-white hover:bg-purple-dark"
+                      : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                  }`}
+                  onClick={() =>
+                    book.email === user?.email &&
+                    navigate(`/update-book/${book._id}`)
+                  }
+                  disabled={book.email !== user?.email}
                 >
                   Update
                 </button>
@@ -134,8 +142,16 @@ const AllBooks = () => {
                     </td>
                     <td className="border px-4 py-2">
                       <button
-                        className="bg-purple text-white py-1 px-4 rounded hover:bg-purple-dark transition"
-                        onClick={() => navigate(`/update-book/${book._id}`)}
+                        className={`font-semibold py-1 px-4 rounded transition ${
+                          book.email === user?.email
+                            ? "bg-purple text-white hover:bg-purple-dark"
+                            : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                        }`}
+                        onClick={() =>
+                          book.email === user?.email &&
+                          navigate(`/update-book/${book._id}`)
+                        }
+                        disabled={book.email !== user?.email}
                       >
                         Update
                       </button>
