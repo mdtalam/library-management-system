@@ -1,3 +1,4 @@
+import { motion } from "motion/react";
 import { FaStar } from "react-icons/fa";
 
 const FeaturedBooks = () => {
@@ -8,15 +9,15 @@ const FeaturedBooks = () => {
       author: "F. Scott Fitzgerald",
       description:
         "A classic novel that explores themes of wealth, love, and the American Dream.",
-      cover: "https://i.ibb.co.com/pjgXWyZ/75dc138d38e4e738549ff02f3d9c951a.jpg", // Replace with book cover URLs
+      cover:
+        "https://i.ibb.co.com/pjgXWyZ/75dc138d38e4e738549ff02f3d9c951a.jpg", // Replace with book cover URLs
       rating: 4.5,
     },
     {
       id: 2,
       title: "To Kill a Mockingbird",
       author: "Harper Lee",
-      description:
-        "A timeless tale of justice and morality in the Deep South.",
+      description: "A timeless tale of justice and morality in the Deep South.",
       cover: "https://i.ibb.co.com/LSRPqWz/55284815-0.jpg",
       rating: 5.0,
     },
@@ -33,7 +34,7 @@ const FeaturedBooks = () => {
 
   return (
     <section className="py-12 mt-10 bg-gradient-to-r from-purple-100 to-orange-100">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-6">
         <h2 className="text-3xl font-bold text-center text-purple mb-6">
           Featured Books of the Month
         </h2>
@@ -43,7 +44,10 @@ const FeaturedBooks = () => {
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {featuredBooks.map((book) => (
-            <div
+            <motion.div
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              onHoverStart={() => console.log("hover started!")}
               key={book.id}
               className="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition duration-300"
             >
@@ -63,7 +67,7 @@ const FeaturedBooks = () => {
                   {book.rating} / 5.0
                 </span>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

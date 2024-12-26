@@ -1,5 +1,6 @@
 import Lottie from "lottie-react";
 import { useContext, useState } from "react";
+import { Helmet } from "react-helmet";
 import { FaGoogle } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2"; // Import SweetAlert2
@@ -81,7 +82,7 @@ const Register = () => {
   
         // Show success message
         Swal.fire({
-          title: "Login Successful!",
+          title: "Registration Successful!",
           text: `Welcome, ${user?.displayName}!`,
           icon: "success",
           confirmButtonText: "Proceed",
@@ -105,8 +106,11 @@ const Register = () => {
 
   return (
     <div>
-      <div className="min-h-screen flex items-center justify-center flex-col lg:flex-row-reverse bg-gray-100 py-10">
-        <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+      <Helmet>
+        <title>Library system | Register</title>
+      </Helmet>
+      <div className="min-h-screen flex items-center justify-center flex-col lg:flex-row-reverse py-10">
+        <div className="p-8 rounded-lg shadow-lg w-full max-w-md">
           <h2 className="text-2xl font-bold text-center mb-6 text-purple">
             Register
           </h2>

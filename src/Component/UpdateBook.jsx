@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../Provider/AuthProvider"; // Assuming you have an AuthContext for user data
@@ -71,6 +72,9 @@ const UpdateBook = () => {
 
   return (
     <div className="max-w-3xl mx-auto p-6 bg-white shadow-md rounded mt-8">
+      <Helmet>
+        <title>Library system | Update Book</title>
+      </Helmet>
       <h1 className="text-2xl font-bold text-center mb-6">Update Book</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>

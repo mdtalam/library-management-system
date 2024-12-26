@@ -1,5 +1,7 @@
+import 'animate.css';
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
+import { Helmet } from 'react-helmet';
 import ReactStars from "react-rating-stars-component";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
@@ -39,6 +41,9 @@ const AllBooks = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Library system | All Books</title>
+      </Helmet>
       <div className="mx-auto p-6">
         {/* View Mode Dropdown */}
         <div className="mb-6">
@@ -70,7 +75,7 @@ const AllBooks = () => {
         {viewMode === "card" ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {filteredBooks.map((book) => (
-              <div key={book._id} className="border p-4 shadow rounded">
+              <div key={book._id} className="animate__animated animate__zoomIn border p-4 shadow rounded">
                 <img
                   src={book.image}
                   alt={book.name}

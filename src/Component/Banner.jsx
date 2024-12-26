@@ -21,7 +21,7 @@ import sliderImg5 from '../assets/img5.jpg';
 const Banner = () => {
     const navigate = useNavigate();
   return (
-    <div className="relative">
+    <div className="relative overflow-hidden">
       <Swiper
         spaceBetween={30} // Space between slides
         centeredSlides={true} // Keep active slide in the center

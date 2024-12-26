@@ -1,6 +1,7 @@
 import axios from "axios";
 import Lottie from "lottie-react";
 import { useContext, useState } from "react";
+import { Helmet } from "react-helmet";
 import Swal from "sweetalert2";
 import { AuthContext } from "../Provider/AuthProvider"; // Import AuthContext
 import addBookLotti from "../assets/addBook.json";
@@ -82,7 +83,10 @@ const AddBook = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto p-6 bg-white shadow-md rounded mt-8 my-10">
+    <div className="max-w-6xl mx-auto p-6 shadow-lg rounded mt-8 my-10">
+      <Helmet>
+        <title>Library system | Add Book</title>
+      </Helmet>
       <h1 className="text-2xl font-bold text-center mb-6">Add a Book</h1>
 
       {/* Flex container to hold the form and animation side by side */}

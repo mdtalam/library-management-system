@@ -1,5 +1,7 @@
+import 'animate.css';
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
+import { Helmet } from 'react-helmet';
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../Provider/AuthProvider";
@@ -87,17 +89,20 @@ const BorrowedBooks = () => {
   }
 
   return (
-    <div className="mx-auto p-6 bg-white shadow-md rounded mt-8">
-      <h1 className="text-2xl font-bold mb-6">Borrowed Books</h1>
+    <div className="mx-auto p-6 shadow-md rounded mt-8">
+      <Helmet>
+        <title>Library system | Borrowed Books</title>
+      </Helmet>
+      <h1 className="animate__animated animate__zoomIn text-2xl font-bold mb-6">Borrowed Books</h1>
 
       {borrowedBooks?.length === 0 ? (
-        <p className="text-center">You have no borrowed books.</p>
+        <p className="animate__animated animate__zoomIn text-center">You have no borrowed books.</p>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {borrowedBooks?.map((book) => (
             <div
               key={book._id}
-              className="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition-all"
+              className="animate__animated animate__rotateInDownLeft bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition-all"
             >
               <img
                 src={book.image}

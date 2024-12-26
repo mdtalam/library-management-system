@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet';
 import ReactStars from 'react-rating-stars-component'; // Import the ReactStars component
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -38,6 +39,9 @@ const CategoryBooks = () => {
 
   return (
     <div className="container mx-auto px-4 py-12">
+      <Helmet>
+        <title>Library system | Book Category</title>
+      </Helmet>
       <div className="flex items-center justify-between mb-8">
         {/* Go Back Button */}
         <button

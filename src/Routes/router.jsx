@@ -31,7 +31,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/update-book/:bookId",
-        element: <UpdateBook></UpdateBook>,
+        element: (
+          <PrivetRoute>
+            <UpdateBook></UpdateBook>
+          </PrivetRoute>
+        ),
       },
       {
         path: "/add-book",
@@ -73,7 +77,7 @@ const router = createBrowserRouter([
   },
   {
     path: "*",
-    element: <ErrorPage></ErrorPage>
+    element: <ErrorPage></ErrorPage>,
   },
 ]);
 

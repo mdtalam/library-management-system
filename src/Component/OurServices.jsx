@@ -1,3 +1,4 @@
+import { motion } from "motion/react";
 import { FaBook, FaCalendarAlt, FaLaptop, FaUsers } from "react-icons/fa";
 
 const OurServices = () => {
@@ -49,7 +50,10 @@ const OurServices = () => {
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {services.map((service) => (
-            <div
+            <motion.div
+            whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              onHoverStart={() => console.log("hover started!")}
               key={service.id}
               className={`rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition duration-300 ${service.bgColor}`}
             >
@@ -58,7 +62,7 @@ const OurServices = () => {
                 {service.title}
               </h3>
               <p className="text-gray-600">{service.description}</p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

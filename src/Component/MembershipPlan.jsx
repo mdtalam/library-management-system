@@ -1,3 +1,4 @@
+import { motion } from "motion/react";
 const MembershipPlans = () => {
     const plans = [
       {
@@ -30,7 +31,7 @@ const MembershipPlans = () => {
   
     return (
       <section className="py-12">
-        <div className="container mx-auto px-4 text-center">
+        <div className="container mx-auto px-6 text-center">
           <h2 className="text-3xl font-bold text-purple mb-4">
             Membership Plans
           </h2>
@@ -39,7 +40,10 @@ const MembershipPlans = () => {
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {plans.map((plan) => (
-              <div
+              <motion.div
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              onHoverStart={() => console.log("hover started!")}
                 key={plan.id}
                 className="bg-white rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition duration-300"
               >
@@ -59,7 +63,7 @@ const MembershipPlans = () => {
                 <button className="bg-purple text-white px-4 py-2 rounded">
                   Choose Plan
                 </button>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

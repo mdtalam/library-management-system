@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import ReactStars from "react-rating-stars-component";
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -153,6 +154,9 @@ const DetailsBook = () => {
 
   return (
     <div className="max-w-3xl mx-auto p-6 bg-white shadow-md rounded mt-8">
+      <Helmet>
+        <title>Library system | Book Details</title>
+      </Helmet>
       <h1 className="text-2xl font-bold mb-4">{book.title}</h1>
       <img src={book.image} alt={book.title} className="w-full rounded mb-4" />
       <p>
