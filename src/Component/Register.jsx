@@ -1,6 +1,7 @@
 import Lottie from "lottie-react";
 import { useContext, useState } from "react";
 import { Helmet } from "react-helmet";
+import { FaEye, FaEyeSlash } from "react-icons/fa"; // Import icons for password visibility toggle
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2"; // Import SweetAlert2
 import registerLottiData from "../assets/register.json";
@@ -9,6 +10,7 @@ import { AuthContext } from "../Provider/AuthProvider";
 const Register = () => {
   const { createNewUser, setUser, updateUserProfile, googleLogin, logOutUser } =
     useContext(AuthContext);
+  const [passwordVisible, setPasswordVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
@@ -20,10 +22,9 @@ const Register = () => {
     const photo = form.photo.value;
     const password = form.password.value;
 
-    // Reset previous error message 
+    // Reset previous error message
     setErrorMessage("");
 
-    
     if (password.length < 6) {
       setErrorMessage("Password should be 6 characters or longer");
       return;
@@ -70,7 +71,9 @@ const Register = () => {
       });
   };
 
-  
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
 
   return (
     <div>
@@ -134,8 +137,8 @@ const Register = () => {
               />
             </div>
 
-            {/* Password Input */}
-            <div className="mb-4">
+            {/* Password Input with Show/Hide Functionality */}
+            <div className="mb-4 relative">
               <label
                 htmlFor="password"
                 className="block text-gray-700 font-medium mb-2"
@@ -143,12 +146,19 @@ const Register = () => {
                 Password
               </label>
               <input
-                type="password"
+                type={passwordVisible ? "text" : "password"}
                 id="password"
                 name="password"
                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple"
                 placeholder="Enter your password"
               />
+              <button
+                type="button"
+                onClick={togglePasswordVisibility}
+                className="absolute top-[52px] right-4 transform -translate-y-1/2 text-gray-600"
+              >
+                {passwordVisible ? <FaEyeSlash /> : <FaEye />}
+              </button>
             </div>
             {errorMessage && (
               <label className="label text-red-500 text-sm">
