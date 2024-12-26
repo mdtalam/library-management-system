@@ -1,3 +1,4 @@
+import 'animate.css';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
@@ -52,7 +53,7 @@ const CategoryBooks = () => {
         </button>
 
         {/* Category Length */}
-        <div className="text-xl font-semibold">
+        <div className="animate__animated animate__zoomIn text-xl font-semibold">
           {filteredBooks.length} Books in {category} Category
         </div>
       </div>
@@ -60,7 +61,7 @@ const CategoryBooks = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {filteredBooks?.length > 0 ? (
           filteredBooks?.map((book) => (
-            <div key={book._id} className="border p-4 shadow rounded">
+            <div key={book._id} className="animate__animated animate__jackInTheBox border p-4 shadow rounded">
               <img
                 src={book.image}
                 alt={book.name}

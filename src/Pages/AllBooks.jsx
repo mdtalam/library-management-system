@@ -67,7 +67,7 @@ const AllBooks = () => {
           </button>
         </div>
 
-        <h1 className="text-2xl font-bold text-center mb-6">
+        <h1 className="animate__animated animate__fadeInDown text-2xl font-bold text-center mb-6">
           All Books: {filteredBooks.length}
         </h1>
 
