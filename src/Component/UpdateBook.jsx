@@ -3,12 +3,12 @@ import { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
-import { AuthContext } from "../Provider/AuthProvider"; // Assuming you have an AuthContext for user data
+import { AuthContext } from "../Provider/AuthProvider";
 
 const UpdateBook = () => {
   const { bookId } = useParams();
   const navigate = useNavigate();
-  const { user } = useContext(AuthContext); // Access the authenticated user's email
+  const { user } = useContext(AuthContext);
 
   const [bookData, setBookData] = useState({
     image: "",
@@ -16,7 +16,7 @@ const UpdateBook = () => {
     author: "",
     category: "",
     rating: "",
-    email: user?.email || "", // Pre-fill the email with the user's email
+    email: user?.email || "",
   });
 
   const categories = ["Fiction", "Science", "History", "Fantasy"];
@@ -58,7 +58,7 @@ const UpdateBook = () => {
                   confirmButtonText: 'Close'
                 })
             }
-      navigate("/all-books"); // Redirect to All Books Page
+      navigate("/all-books");
     } catch (error) {
       console.error("Failed to update book:", error);
       Swal.fire({

@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
-import { FaMoon, FaSun } from "react-icons/fa"; // For dark/light mode icons
+import { FaMoon, FaSun } from "react-icons/fa";
 import { Link, NavLink } from "react-router-dom";
 import { Tooltip } from "react-tooltip";
 import { AuthContext } from "../Provider/AuthProvider";
 
 const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // State to toggle menu
+  const [isMenuOpen, setIsMenuOpen] = useState(false); 
   const { user, logOutUser } = useContext(AuthContext);
 
   const [theme, setTheme] = useState("light");

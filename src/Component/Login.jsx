@@ -2,7 +2,7 @@ import Lottie from "lottie-react";
 import { useContext, useState } from "react";
 import { Helmet } from "react-helmet";
 import { FaEye, FaEyeSlash, FaGoogle } from "react-icons/fa"; // Import password eye icons
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2"; // Import SweetAlert2
 import loginLottiData from "../assets/login.json";
 import { AuthContext } from "../Provider/AuthProvider";
@@ -10,8 +10,7 @@ import { AuthContext } from "../Provider/AuthProvider";
 const Login = () => {
   const { logInUser, setUser, googleLogin } = useContext(AuthContext);
   const [userError, setUserError] = useState({});
-  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
-  const location = useLocation();
+  const [showPassword, setShowPassword] = useState(false); 
   const navigate = useNavigate();
 
   const handleLogin = (event) => {
@@ -20,7 +19,7 @@ const Login = () => {
     const email = form.email.value;
     const password = form.password.value;
 
-    // Reset previous error message when a new login attempt is made
+    // Reset previous error message
     setUserError({});
 
     logInUser(email, password)
@@ -97,7 +96,7 @@ const Login = () => {
                 Password
               </label>
               <input
-                type={showPassword ? "text" : "password"} // Toggle input type based on state
+                type={showPassword ? "text" : "password"}
                 name="password"
                 id="password"
                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple pr-12" // Add padding-right for the icon
@@ -106,7 +105,7 @@ const Login = () => {
               <button
                 type="button"
                 className="absolute top-[52px] right-4 transform -translate-y-1/2"
-                onClick={() => setShowPassword(!showPassword)} // Toggle password visibility
+                onClick={() => setShowPassword(!showPassword)}
               >
                 {showPassword ? (
                   <FaEyeSlash className="text-gray-600" />

@@ -4,6 +4,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Helmet } from 'react-helmet';
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import Loading from '../Component/Loading';
 import { AuthContext } from "../Provider/AuthProvider";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 
@@ -48,9 +49,9 @@ const BorrowedBooks = () => {
         `${import.meta.env.VITE_API_URL}/borrow`,
         {
           data: {
-            recordId, // The _id of the borrowed book record
-            bookId,   // The book's ID in the collection
-            userEmail: user.email, // User's email
+            recordId, 
+            bookId,   
+            userEmail: user.email, 
           },
         }
       );
@@ -80,11 +81,7 @@ const BorrowedBooks = () => {
   // Loading state display
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-96">
-        <div className="spinner-border text-purple-500" role="status">
-          <span className="sr-only">Loading...</span>
-        </div>
-      </div>
+      <Loading></Loading>
     );
   }
 

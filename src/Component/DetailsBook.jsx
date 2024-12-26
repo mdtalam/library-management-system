@@ -1,3 +1,4 @@
+import 'animate.css';
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
@@ -5,6 +6,7 @@ import ReactStars from "react-rating-stars-component";
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../Provider/AuthProvider";
+import Loading from './Loading';
 
 const DetailsBook = () => {
   const { bookId } = useParams();
@@ -118,7 +120,7 @@ const DetailsBook = () => {
           icon: "success",
           confirmButtonText: "Close",
         }).then(() => {
-          // Navigate to the borrowed books page
+        
           navigate("/borrowed-books");
         });
 
@@ -150,10 +152,10 @@ const DetailsBook = () => {
     }
   };
 
-  if (!book) return <p>Loading book details...</p>;
+  if (!book) return <Loading></Loading>;
 
   return (
-    <div className="max-w-3xl mx-auto p-6 bg-white shadow-md rounded mt-8">
+    <div className="animate__animated animate__jackInTheBox max-w-3xl mx-auto p-6 bg-white shadow-md rounded mt-8">
       <Helmet>
         <title>Library system | Book Details</title>
       </Helmet>

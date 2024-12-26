@@ -3,11 +3,11 @@ import Lottie from "lottie-react";
 import { useContext, useState } from "react";
 import { Helmet } from "react-helmet";
 import Swal from "sweetalert2";
-import { AuthContext } from "../Provider/AuthProvider"; // Import AuthContext
+import { AuthContext } from "../Provider/AuthProvider";
 import addBookLotti from "../assets/addBook.json";
 
 const AddBook = () => {
-  const { user } = useContext(AuthContext); // Access the authenticated user
+  const { user } = useContext(AuthContext);
   const [bookData, setBookData] = useState({
     image: "", // Image URL instead of a file
     title: "",
@@ -16,7 +16,7 @@ const AddBook = () => {
     category: "",
     description: "",
     rating: "",
-    email: user?.email || "", // Pre-fill with authenticated user's email
+    email: user?.email || "",
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -34,14 +34,16 @@ const AddBook = () => {
     setIsSubmitting(true);
 
     try {
-      // Explicitly convert quantity and rating to numbers
       const bookDataWithNumbers = {
         ...bookData,
         quantity: Number(bookData.quantity), // Ensure quantity is a number
         rating: Number(bookData.rating), // Ensure rating is a number
       };
 
-      // Save book details, including the image URL, to the database
+      // Axios sends cookies for JWT automatically if configured with credentials
+      axios.defaults.withCredentials = true;
+
+      // Save book details to the database
       const { data } = await axios.post(
         `${import.meta.env.VITE_API_URL}/books`,
         bookDataWithNumbers
@@ -71,12 +73,28 @@ const AddBook = () => {
       });
     } catch (error) {
       console.error("Error saving book to the database:", error);
-      Swal.fire({
-        title: "Error!",
-        text: "Failed to add the book. Please try again.",
-        icon: "error",
-        confirmButtonText: "Close",
-      });
+      if (error.response?.status === 401) {
+        Swal.fire({
+          title: "Unauthorized!",
+          text: "You are not logged in. Please log in to add books.",
+          icon: "error",
+          confirmButtonText: "Close",
+        });
+      } else if (error.response?.status === 403) {
+        Swal.fire({
+          title: "Forbidden!",
+          text: "You are not authorized to add books.",
+          icon: "error",
+          confirmButtonText: "Close",
+        });
+      } else {
+        Swal.fire({
+          title: "Error!",
+          text: "Failed to add the book. Please try again.",
+          icon: "error",
+          confirmButtonText: "Close",
+        });
+      }
     } finally {
       setIsSubmitting(false);
     }
