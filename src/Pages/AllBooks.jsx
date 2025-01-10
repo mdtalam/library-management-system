@@ -54,7 +54,7 @@ const AllBooks = () => {
       <Helmet>
         <title>Library system | All Books</title>
       </Helmet>
-      <div className="mx-auto p-6">
+      <div className="mx-auto px-6 mt-[104px]">
         {/* View Mode Dropdown */}
         <div className="mb-6">
           <select
@@ -68,7 +68,7 @@ const AllBooks = () => {
         </div>
 
         {/* Filter Button for Available Books */}
-        <div className="mb-6">
+        <div className="mb-6 flex justify-end">
           <button
             onClick={handleShowAvailable}
             className="px-4 py-2 bg-green-500 text-white font-semibold rounded"

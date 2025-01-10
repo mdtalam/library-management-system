@@ -44,7 +44,7 @@ const CategoryBooks = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-12">
+    <div className="container mx-auto px-4 py-12 mt-[104px] mb-8">
       <Helmet>
         <title>Library system | Book Category</title>
       </Helmet>

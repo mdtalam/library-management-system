@@ -101,7 +101,7 @@ const AddBook = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto p-6 shadow-lg rounded mt-8 my-10">
+    <div className="max-w-6xl mx-auto p-6 shadow-lg rounded my-10 mt-[104px]">
       <Helmet>
         <title>Library system | Add Book</title>
       </Helmet>

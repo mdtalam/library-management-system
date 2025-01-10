@@ -12,7 +12,7 @@ const Home = () => {
       <Helmet>
         <title>Library system | Home</title>
       </Helmet>
-      <section className="banner">
+      <section className="banner mt-[68px]">
         <Banner></Banner>
       </section>
       <section>

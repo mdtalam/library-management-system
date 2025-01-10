@@ -155,7 +155,7 @@ const DetailsBook = () => {
   if (!book) return <Loading></Loading>;
 
   return (
-    <div className="animate__animated animate__jackInTheBox max-w-3xl mx-auto p-6 bg-white shadow-md rounded mt-8">
+    <div className="animate__animated animate__jackInTheBox max-w-3xl mx-auto p-6 bg-white shadow-md rounded mt-[104px] mb-8">
       <Helmet>
         <title>Library system | Book Details</title>
       </Helmet>

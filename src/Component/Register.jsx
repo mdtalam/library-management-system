@@ -76,7 +76,7 @@ const Register = () => {
   };
 
   return (
-    <div>
+    <div className="mt-[104px]">
       <Helmet>
         <title>Library system | Register</title>
       </Helmet>

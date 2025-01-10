@@ -86,7 +86,7 @@ const BorrowedBooks = () => {
   }
 
   return (
-    <div className="mx-auto p-6 shadow-md rounded mt-8">
+    <div className="mx-auto p-6 shadow-md rounded mt-[104px] mb-8">
       <Helmet>
         <title>Library system | Borrowed Books</title>
       </Helmet>
