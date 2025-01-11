@@ -7,13 +7,13 @@ import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const Profile = () => {
   const axiosSecure = useAxiosSecure();
-  const { user, loading,updateUserProfile } = useContext(AuthContext);
+  const { user, loading, updateUserProfile, setUser } = useContext(AuthContext);
   const [borrowedBooks, setBorrowedBooks] = useState([]);
   const [loadingBooks, setLoadingBooks] = useState(true);
   const [viewMode, setViewMode] = useState("card"); // 'card' or 'table' view
   const [modalOpen, setModalOpen] = useState(false); // Modal visibility state
-  const [name, setName] = useState(user?.displayName || ""); // State for name input
-  const [photoURL, setPhotoURL] = useState(user?.photoURL || ""); // State for photoURL input
+  const [name, setName] = useState(""); // State for name input
+  const [photoURL, setPhotoURL] = useState(""); // State for photoURL input
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -50,41 +50,44 @@ const Profile = () => {
     setViewMode((prevMode) => (prevMode === "card" ? "table" : "card"));
   };
 
-  const handleProfileUpdate = (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const updatedProfile = {
-      displayName: formData.get("name"),
-      photoURL: formData.get("photo"),
-    };
+  const handleOpenModal = () => {
+    setName(user?.displayName || ""); // Set initial name value
+    setPhotoURL(user?.photoURL || ""); // Set initial photoURL value
+    setModalOpen(true); // Open modal
+  };
 
-    updateUserProfile(updatedProfile)
-      .then(() => {
-        Swal.fire({
-          title: "Success!",
-          text: "Profile updated successfully.",
-          icon: "success",
-          confirmButtonText: "Close",
-        });
-        setIsModalOpen(false);
-      })
-      .catch((error) => {
-        console.error("Profile update error:", error);
-        Swal.fire({
-          title: "Error!",
-          text: "Failed to update profile. Please try again later.",
-          icon: "error",
-          confirmButtonText: "Close",
-        });
+  const handleProfileUpdate = async (e) => {
+    e.preventDefault();
+    try {
+      await updateUserProfile({
+        displayName: name,
+        photoURL: photoURL,
       });
+      setUser({ ...user, displayName: name, photoURL: photoURL }); // Update user context
+      Swal.fire({
+        title: "Success!",
+        text: "Profile updated successfully.",
+        icon: "success",
+        confirmButtonText: "Close",
+      });
+      setModalOpen(false); // Close modal after success
+    } catch (error) {
+      console.error("Profile update error:", error);
+      Swal.fire({
+        title: "Error!",
+        text: "Failed to update profile. Please try again later.",
+        icon: "error",
+        confirmButtonText: "Close",
+      });
+    }
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h2 className="text-3xl font-bold text-purple mb-6">My Profile</h2>
+    <div className="container mx-auto px-4 py-8 mt-[104px]">
+      <h2 className="text-3xl text-center font-bold text-purple mb-6">My Profile</h2>
 
       {/* User Info Section */}
-      <div className="flex items-center space-x-6 bg-white shadow-lg p-6 rounded-lg">
+      <div className="flex justify-center items-center space-x-6 bg-white shadow-lg p-6 rounded-lg">
         <img
           referrerPolicy="no-referrer"
           src={user?.photoURL || "https://via.placeholder.com/100"}
@@ -102,7 +105,7 @@ const Profile = () => {
       {/* Edit Profile Button */}
       <div className="mt-10">
         <button
-          onClick={() => setModalOpen(true)} // Open modal when clicked
+          onClick={handleOpenModal} // Open modal when clicked
           className="bg-orange text-white px-6 py-3 rounded-lg font-semibold hover:bg-orange-dark transition"
         >
           Edit Profile
@@ -134,8 +137,8 @@ const Profile = () => {
                 <h4 className="text-xl font-semibold text-orange mb-2">
                   {book.title}
                 </h4>
-                <p className="text-gray-700">Author: {book.author}</p>
-                <p className="text-gray-700">Borrowed Date: {book.date}</p>
+                <p className="text-gray-700">Author: {book.category}</p>
+                <p className="text-gray-700">Borrowed Date: {new Date(book.borrowedDate).toLocaleDateString()}</p>
                 <p className="text-gray-700">Return Date: {book.returnDate}</p>
               </div>
             ))}
@@ -146,7 +149,7 @@ const Profile = () => {
               <thead>
                 <tr className="bg-gray-100">
                   <th className="px-4 py-2 text-left">Title</th>
-                  <th className="px-4 py-2 text-left">Author</th>
+                  <th className="px-4 py-2 text-left">Category</th>
                   <th className="px-4 py-2 text-left">Borrowed Date</th>
                   <th className="px-4 py-2 text-left">Return Date</th>
                 </tr>
@@ -155,8 +158,8 @@ const Profile = () => {
                 {borrowedBooks.map((book) => (
                   <tr key={book.id} className="border-b hover:bg-gray-50">
                     <td className="px-4 py-2">{book.title}</td>
-                    <td className="px-4 py-2">{book.author}</td>
-                    <td className="px-4 py-2">{book.date}</td>
+                    <td className="px-4 py-2">{book.category}</td>
+                    <td className="px-4 py-2">{new Date(book.borrowedDate).toLocaleDateString()}</td>
                     <td className="px-4 py-2">{book.returnDate}</td>
                   </tr>
                 ))}
