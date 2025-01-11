@@ -64,54 +64,74 @@ const Navbar = () => {
               Home
             </NavLink>
           </li>
-          <li>
-            <NavLink
-              to="/all-books"
-              className={({ isActive }) =>
-                isActive
-                  ? "bg-white text-orange font-semibold px-4 py-2 rounded"
-                  : "hover:text-orange"
-              }
-            >
-              All Books
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/add-book"
-              className={({ isActive }) =>
-                isActive
-                  ? "bg-white text-orange font-semibold px-4 py-2 rounded"
-                  : "hover:text-orange"
-              }
-            >
-              Add Book
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/borrowed-books"
-              className={({ isActive }) =>
-                isActive
-                  ? "bg-white text-orange font-semibold px-4 py-2 rounded"
-                  : "hover:text-orange"
-              }
-            >
-              Borrowed Books
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/my-profile"
-              className={({ isActive }) =>
-                isActive
-                  ? "bg-white text-orange font-semibold px-4 py-2 rounded"
-                  : "hover:text-orange"
-              }
-            >
-              My Profile
-            </NavLink>
-          </li>
+          {user && (
+            <li>
+              <NavLink
+                to="/all-books"
+                className={({ isActive }) =>
+                  isActive
+                    ? "bg-white text-orange font-semibold px-4 py-2 rounded"
+                    : "hover:text-orange"
+                }
+              >
+                All Books
+              </NavLink>
+            </li>
+          )}
+          {user && (
+            <li>
+              <NavLink
+                to="/add-book"
+                className={({ isActive }) =>
+                  isActive
+                    ? "bg-white text-orange font-semibold px-4 py-2 rounded"
+                    : "hover:text-orange"
+                }
+              >
+                Add Book
+              </NavLink>
+            </li>
+          )}
+          {user && (
+            <li>
+              <NavLink
+                to="/borrowed-books"
+                className={({ isActive }) =>
+                  isActive
+                    ? "bg-white text-orange font-semibold px-4 py-2 rounded"
+                    : "hover:text-orange"
+                }
+              >
+                Borrowed Books
+              </NavLink>
+            </li>
+          )}
+           <li>
+              <NavLink
+                to="/about-us"
+                className={({ isActive }) =>
+                  isActive
+                    ? "bg-white text-orange font-semibold px-4 py-2 rounded"
+                    : "hover:text-orange"
+                }
+              >
+                About US
+              </NavLink>
+            </li>
+          {user && (
+            <li>
+              <NavLink
+                to="/my-profile"
+                className={({ isActive }) =>
+                  isActive
+                    ? "bg-white text-orange font-semibold px-4 py-2 rounded"
+                    : "hover:text-orange"
+                }
+              >
+                My Profile
+              </NavLink>
+            </li>
+          )}
           {/* Conditional Login/Logout */}
           {!user ? (
             <>
@@ -193,45 +213,79 @@ const Navbar = () => {
               Home
             </NavLink>
           </li>
+          {user && (
+            <li>
+              <NavLink
+                to="/all-books"
+                className={({ isActive }) =>
+                  isActive
+                    ? "bg-white text-orange font-semibold px-3 py-1 rounded block text-center mb-2"
+                    : "hover:text-orange block text-center mb-2"
+                }
+                onClick={() => setIsMenuOpen(false)}
+              >
+                All Books
+              </NavLink>
+            </li>
+          )}
+          {user && (
+            <li>
+              <NavLink
+                to="/add-book"
+                className={({ isActive }) =>
+                  isActive
+                    ? "bg-white text-orange font-semibold px-3 py-1 rounded block text-center mb-2"
+                    : "hover:text-orange block text-center mb-2"
+                }
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Add Book
+              </NavLink>
+            </li>
+          )}
+          {user && (
+            <li>
+              <NavLink
+                to="/borrowed-books"
+                className={({ isActive }) =>
+                  isActive
+                    ? "bg-white text-orange font-semibold px-3 py-1 rounded block text-center mb-2"
+                    : "hover:text-orange block text-center mb-2"
+                }
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Borrowed Books
+              </NavLink>
+            </li>
+          )}
           <li>
-            <NavLink
-              to="/all-books"
-              className={({ isActive }) =>
-                isActive
-                  ? "bg-white text-orange font-semibold px-3 py-1 rounded block text-center mb-2"
-                  : "hover:text-orange block text-center mb-2"
-              }
-              onClick={() => setIsMenuOpen(false)}
-            >
-              All Books
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/add-book"
-              className={({ isActive }) =>
-                isActive
-                  ? "bg-white text-orange font-semibold px-3 py-1 rounded block text-center mb-2"
-                  : "hover:text-orange block text-center mb-2"
-              }
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Add Book
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/borrowed-books"
-              className={({ isActive }) =>
-                isActive
-                  ? "bg-white text-orange font-semibold px-3 py-1 rounded block text-center mb-2"
-                  : "hover:text-orange block text-center mb-2"
-              }
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Borrowed Books
-            </NavLink>
-          </li>
+              <NavLink
+                to="/about-us"
+                className={({ isActive }) =>
+                  isActive
+                    ? "bg-white text-orange font-semibold px-3 py-1 rounded block text-center mb-2"
+                    : "hover:text-orange block text-center mb-2"
+                }
+                onClick={() => setIsMenuOpen(false)}
+              >
+                About US
+              </NavLink>
+            </li>
+          {user && (
+            <li>
+              <NavLink
+                to="/my-profile"
+                className={({ isActive }) =>
+                  isActive
+                    ? "bg-white text-orange font-semibold px-3 py-1 rounded block text-center mb-2"
+                    : "hover:text-orange block text-center mb-2"
+                }
+                onClick={() => setIsMenuOpen(false)}
+              >
+                My Profile
+              </NavLink>
+            </li>
+          )}
           {/* Conditional Login/Logout */}
           {!user ? (
             <>

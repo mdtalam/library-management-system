@@ -6,6 +6,7 @@ import Login from "../Component/Login";
 import Register from "../Component/Register";
 import UpdateBook from "../Component/UpdateBook";
 import MainLayout from "../Layout/MainLayout";
+import AboutUs from "../Pages/AboutUs";
 import AddBook from "../Pages/AddBook";
 import AllBooks from "../Pages/AllBooks";
 import BorrowedBooks from "../Pages/BorrowedBooks";
@@ -72,12 +73,12 @@ const router = createBrowserRouter([
       },
       {
         path: "details/:bookId",
-        element: (
-          <PrivetRoute>
-            <DetailsBook></DetailsBook>
-          </PrivetRoute>
-        ),
+        element: <DetailsBook></DetailsBook>,
       },
+      {
+        path: "about-us",
+        element: <AboutUs></AboutUs>
+      }
     ],
   },
   {

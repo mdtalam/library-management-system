@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import Loading from "../Component/Loading";
@@ -84,6 +85,9 @@ const Profile = () => {
 
   return (
     <div className="container mx-auto px-4 py-8 mt-[104px]">
+    <Helmet>
+        <title>Library system | My Profile</title>
+      </Helmet>
       <h2 className="text-3xl text-center font-bold text-purple mb-6">My Profile</h2>
 
       {/* User Info Section */}
@@ -172,7 +176,7 @@ const Profile = () => {
       {/* Edit Profile Modal */}
       {modalOpen && (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-6 rounded-lg w-96">
+          <div className="bg-white p-6 mx-4 rounded-lg w-96">
             <h3 className="text-2xl font-semibold text-dark-gray mb-4">Edit Profile</h3>
 
             <div className="mb-4">
