@@ -1,3 +1,4 @@
+import 'animate.css';
 import { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useNavigate } from "react-router-dom";
@@ -84,29 +85,27 @@ const Profile = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 mt-[104px]">
+    <div className="container mx-auto px-4 py-8 mt-[104px] animate__animated animate__zoomIn">
     <Helmet>
         <title>Library system | My Profile</title>
       </Helmet>
       <h2 className="text-3xl text-center font-bold mb-6">My Profile</h2>
 
       {/* User Info Section */}
-      <div className="flex justify-center items-center space-x-6 shadow-xl p-6 rounded-lg">
+      <div className="flex flex-col justify-center items-center space-x-6 shadow-xl p-6 rounded-lg">
         <img
           referrerPolicy="no-referrer"
           src={user?.photoURL || "https://via.placeholder.com/100"}
           alt="User Avatar"
-          className="w-24 h-24 rounded-full border-4 border-orange"
+          className="w-48 h-48 rounded-full border-4 border-orange"
         />
-        <div>
+        <div className='text-center'>
           <h3 className="text-2xl font-semibold text-dark-gray">
             {user?.displayName || "User Name"}
           </h3>
           <p className="text-lg">{user?.email}</p>
         </div>
-      </div>
-
-      {/* Edit Profile Button */}
+        {/* Edit Profile Button */}
       <div className="mt-10">
         <button
           onClick={handleOpenModal} // Open modal when clicked
@@ -115,9 +114,10 @@ const Profile = () => {
           Edit Profile
         </button>
       </div>
+      </div>
 
       {/* Toggle View Button */}
-      <div className="mt-6">
+      <div className="mt-6 flex justify-center">
         <button
           onClick={handleToggleView}
           className="bg-orange text-white px-6 py-3 rounded-lg font-semibold hover:bg-orange-dark transition"
@@ -136,7 +136,7 @@ const Profile = () => {
             {borrowedBooks.map((book) => (
               <div
                 key={book.id}
-                className="shadow-lg p-4 rounded-lg border border-gray-300"
+                className="shadow-lg p-4 rounded-lg border border-gray-300 animate__animated animate__zoomIn"
               >
                 <h4 className="text-xl font-semibold text-orange mb-2">
                   {book.title}
@@ -148,7 +148,7 @@ const Profile = () => {
             ))}
           </div>
         ) : (
-          <div className="overflow-x-auto shadow-lg rounded-lg">
+          <div className="overflow-x-auto shadow-lg rounded-lg animate__animated animate__zoomIn">
             <table className="min-w-full table-auto">
               <thead>
                 <tr className="bg-gray-100">

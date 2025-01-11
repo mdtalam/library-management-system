@@ -1,29 +1,39 @@
-import React, { useState } from "react";
+import emailjs from '@emailjs/browser';
+import 'animate.css';
+import React, { useContext, useRef } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import { AuthContext } from '../Provider/AuthProvider';
 
 const AboutUs = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
+  const form = useRef();
+  const {user} = useContext(AuthContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!name || !email || !message) {
-      alert("Please fill in all fields.");
-      return;
-    }
-
-    // Simulate form submission
-    alert("Your message has been submitted successfully!");
-
-    // Clear form fields after submission
-    setName("");
-    setEmail("");
-    setMessage("");
-  };
+    emailjs
+    .sendForm('service_up1ulpf', 'template_nlluu7o', form.current, {
+      publicKey: '9eQbS6xIyppU87sOK',
+    })
+    .then(
+      () => {
+        console.log('SUCCESS!');
+        toast.success('Message sent successfully!', {
+          position: "top-center",
+          autoClose: 3000,
+          theme: "colored",
+        });
+        form.current.reset(); // Reset the form after successful submission
+      },
+      (error) => {
+        console.log('FAILED...', error.text);
+        toast.error('Failed to send message. Please try again.');
+      }
+    );
+}
   return (
     <div>
-      <div className="container mx-auto py-10 px-4 mt-[104px]">
+      <div className="container mx-auto py-10 px-4 mt-[104px] animate__animated animate__zoomIn">
         <h1 className="text-4xl font-bold mb-8">About Us</h1>
 
         <div className="shadow-lg p-8 rounded-lg">
@@ -61,7 +71,7 @@ const AboutUs = () => {
         
       </div>
       {/* Contact Us Section */}
-      <div className="shadow-lg p-8 rounded-lg">
+      <div className="shadow-lg p-8 rounded-lg animate__animated animate__zoomIn">
         <h2 className="text-3xl text-center font-semibold text-dark-gray mb-6">
           Contact Us
         </h2>
@@ -71,13 +81,12 @@ const AboutUs = () => {
         </p>
 
         {/* Contact Form */}
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form ref={form} onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label className="block mb-2">Name</label>
             <input
               type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              name="name"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg"
               placeholder="Enter your name"
               required
@@ -88,8 +97,8 @@ const AboutUs = () => {
             <label className="block mb-2">Email</label>
             <input
               type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              name="email"
+              value={user?.email}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg"
               placeholder="Enter your email"
               required
@@ -99,8 +108,7 @@ const AboutUs = () => {
           <div>
             <label className="block mb-2">Message</label>
             <textarea
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
+              name="message"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg"
               placeholder="Enter your message"
               rows="5"
@@ -118,6 +126,7 @@ const AboutUs = () => {
           </div>
         </form>
       </div>
+      <ToastContainer></ToastContainer>
     </div>
   );
 };

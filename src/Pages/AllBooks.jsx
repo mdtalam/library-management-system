@@ -90,7 +90,7 @@ const AllBooks = () => {
             {viewMode === "table" ? (
               // Table View
               <div className="overflow-x-auto">
-                <table className="min-w-full table-auto border-collapse">
+                <table className="min-w-full table-auto border-collapse animate__animated animate__zoomIn">
                   <thead className="bg-gray-100">
                     <tr>
                       <th className="border px-4 py-2">Title</th>
