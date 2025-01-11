@@ -33,12 +33,12 @@ const FeaturedBooks = () => {
   ];
 
   return (
-    <section className="py-12 mt-10 bg-gradient-to-r from-purple-100 to-orange-100">
+    <section className="pt-12 mt-6 bg-gradient-to-r from-purple-100 to-orange-100">
       <div className="container mx-auto px-6">
-        <h2 className="text-3xl font-bold text-center text-purple mb-6">
+        <h2 className="text-3xl font-bold text-center mb-6">
           Featured Books of the Month
         </h2>
-        <p className="text-lg text-center text-gray-700 mb-8">
+        <p className="text-lg text-center mb-8">
           Explore our handpicked selection of top-rated books that you won't
           want to miss!
         </p>

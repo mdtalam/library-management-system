@@ -34,7 +34,7 @@ const Banner = () => {
         }}
         navigation={true} // Enable next/previous buttons
         modules={[Autoplay, Pagination, Navigation]} // Import Swiper modules
-        className="mySwiper h-[70vh] w-screen container mx-auto bg-cover"
+        className="mySwiper h-[65vh] w-screen container mx-auto bg-cover"
       >
         {/* Slide 1 */}
         <SwiperSlide>
@@ -46,7 +46,7 @@ const Banner = () => {
                 backgroundPosition: "center",
               }}
           >
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-t bg-opacity-50 bg-black from-black via-transparent to-transparent"></div>
             <h2 className="text-3xl font-bold z-10">Welcome to Our Library</h2>
             <p className="text-xl mt-4 z-10">Explore a wide variety of books and resources.</p>
             <button className="mt-6 bg-orange text-white px-6 py-2 rounded-lg hover:bg-orange-dark z-10">
@@ -65,7 +65,7 @@ const Banner = () => {
                 backgroundPosition: "center",
               }}
           >
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-t bg-opacity-50 bg-black from-black via-transparent to-transparent"></div>
             <h2 className="text-3xl font-bold z-10">Manage Your Borrowing</h2>
             <p className="text-xl mt-4 z-10">Easily track your borrowed books and due dates.</p>
             <button 
@@ -86,7 +86,7 @@ const Banner = () => {
                 backgroundPosition: "center",
               }}
           >
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-t bg-opacity-50 bg-black from-black via-transparent to-transparent"></div>
             <h2 className="text-3xl font-bold z-10">Add Your Books</h2>
             <p className="text-xl mt-4 z-10">Share your collection with others and contribute to the library.</p>
             <button
@@ -107,7 +107,7 @@ const Banner = () => {
                 backgroundPosition: "center",
               }}
           >
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-t bg-opacity-50 bg-black from-black via-transparent to-transparent"></div>
             <h2 className="text-3xl font-bold z-10">New Arrivals</h2>
             <p className="text-xl mt-4 z-10">Check out the latest books added to our collection!</p>
             <button className="mt-6 bg-orange text-white px-6 py-2 rounded-lg hover:bg-orange-dark z-10">
@@ -126,7 +126,7 @@ const Banner = () => {
                 backgroundPosition: "center",
               }}
           >
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-t bg-opacity-50 bg-black from-black via-transparent to-transparent"></div>
             <h2 className="text-3xl font-bold z-10">Join Our Community</h2>
             <p className="text-xl mt-4 z-10">Become a member and enjoy exclusive benefits.</p>
             <button 

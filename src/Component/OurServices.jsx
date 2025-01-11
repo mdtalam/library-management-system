@@ -38,9 +38,9 @@ const OurServices = () => {
   ];
 
   return (
-    <section className="py-12 mt-10">
+    <section className="pt-12 mt-6">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center text-purple mb-4">
+        <h2 className="text-3xl font-bold text-center mb-4">
           Experience Exceptional Services
         </h2>
         <p className="text-lg text-center mb-8">

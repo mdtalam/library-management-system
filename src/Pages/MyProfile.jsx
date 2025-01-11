@@ -88,10 +88,10 @@ const Profile = () => {
     <Helmet>
         <title>Library system | My Profile</title>
       </Helmet>
-      <h2 className="text-3xl text-center font-bold text-purple mb-6">My Profile</h2>
+      <h2 className="text-3xl text-center font-bold mb-6">My Profile</h2>
 
       {/* User Info Section */}
-      <div className="flex justify-center items-center space-x-6 bg-white shadow-lg p-6 rounded-lg">
+      <div className="flex justify-center items-center space-x-6 shadow-xl p-6 rounded-lg">
         <img
           referrerPolicy="no-referrer"
           src={user?.photoURL || "https://via.placeholder.com/100"}
@@ -102,7 +102,7 @@ const Profile = () => {
           <h3 className="text-2xl font-semibold text-dark-gray">
             {user?.displayName || "User Name"}
           </h3>
-          <p className="text-lg text-gray-600">{user?.email}</p>
+          <p className="text-lg">{user?.email}</p>
         </div>
       </div>
 
@@ -128,7 +128,7 @@ const Profile = () => {
 
       {/* Borrowed Books Section */}
       <div className="mt-10">
-        <h3 className="text-2xl font-bold text-purple mb-4">Borrowed Books</h3>
+        <h3 className="text-2xl font-bold mb-4">Borrowed Books</h3>
 
         {/* Conditionally Render Table or Card View */}
         {viewMode === "card" ? (
@@ -136,19 +136,19 @@ const Profile = () => {
             {borrowedBooks.map((book) => (
               <div
                 key={book.id}
-                className="bg-white shadow-lg p-4 rounded-lg border border-gray-300"
+                className="shadow-lg p-4 rounded-lg border border-gray-300"
               >
                 <h4 className="text-xl font-semibold text-orange mb-2">
                   {book.title}
                 </h4>
-                <p className="text-gray-700">Author: {book.category}</p>
-                <p className="text-gray-700">Borrowed Date: {new Date(book.borrowedDate).toLocaleDateString()}</p>
-                <p className="text-gray-700">Return Date: {book.returnDate}</p>
+                <p>Author: {book.category}</p>
+                <p>Borrowed Date: {new Date(book.borrowedDate).toLocaleDateString()}</p>
+                <p>Return Date: {book.returnDate}</p>
               </div>
             ))}
           </div>
         ) : (
-          <div className="overflow-x-auto bg-white shadow-lg rounded-lg">
+          <div className="overflow-x-auto shadow-lg rounded-lg">
             <table className="min-w-full table-auto">
               <thead>
                 <tr className="bg-gray-100">

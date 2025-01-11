@@ -11,7 +11,7 @@ const AllBooks = () => {
   const [books, setBooks] = useState([]);
   const { user } = useContext(AuthContext);
   const [filteredBooks, setFilteredBooks] = useState([]);
-  const [viewMode, setViewMode] = useState("card");
+  const [viewMode, setViewMode] = useState("table");
   const [showAvailable, setShowAvailable] = useState(false);
   const [loading, setLoading] = useState(true); // Loading state
   const navigate = useNavigate();
@@ -54,7 +54,7 @@ const AllBooks = () => {
       <Helmet>
         <title>Library system | All Books</title>
       </Helmet>
-      <div className="mx-auto px-6 mt-[104px]">
+      <div className="mx-auto px-6 mt-[104px] mb-8">
         {/* View Mode Dropdown */}
         <div className="mb-6">
           <select
@@ -62,8 +62,8 @@ const AllBooks = () => {
             onChange={handleViewChange}
             className="px-4 py-2 border rounded"
           >
-            <option value="card">Card View</option>
             <option value="table">Table View</option>
+            <option value="card">Card View</option>
           </select>
         </div>
 
@@ -87,48 +87,7 @@ const AllBooks = () => {
         ) : (
           <>
             {/* Conditional Rendering of Card View or Table View */}
-            {viewMode === "card" ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {filteredBooks.map((book) => (
-                  <div key={book._id} className="animate__animated animate__zoomIn border p-4 shadow rounded">
-                    <img
-                      src={book.image}
-                      alt={book.name}
-                      className="w-full h-48 object-cover rounded mb-4"
-                    />
-                    <h2 className="text-xl font-semibold">{book.title}</h2>
-                    <p className="text-gray-600">Author: {book.author}</p>
-                    <p className="text-gray-600">Category: {book.category}</p>
-                    <p className="text-gray-600">Quantity: {book.quantity}</p>
-                    <div className="flex items-center gap-2 mt-2">
-                      <ReactStars
-                        count={5}
-                        value={book.rating}
-                        size={24}
-                        edit={false}
-                        activeColor="#ffd700"
-                        isHalf={true}
-                      />
-                      <span className="text-gray-600">({book.rating})</span>
-                    </div>
-                    <button
-                      className={`font-semibold w-full py-1 px-4 rounded transition ${
-                        book.email === user?.email
-                          ? "bg-purple text-white hover:bg-purple-dark"
-                          : "bg-gray-300 text-gray-500 cursor-not-allowed"
-                      }`}
-                      onClick={() =>
-                        book.email === user?.email &&
-                        navigate(`/update-book/${book._id}`)
-                      }
-                      disabled={book.email !== user?.email}
-                    >
-                      Update
-                    </button>
-                  </div>
-                ))}
-              </div>
-            ) : (
+            {viewMode === "table" ? (
               // Table View
               <div className="overflow-x-auto">
                 <table className="min-w-full table-auto border-collapse">
@@ -180,6 +139,52 @@ const AllBooks = () => {
                     ))}
                   </tbody>
                 </table>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {filteredBooks.map((book) => (
+                  <div
+                    key={book._id}
+                    className="animate__animated animate__zoomIn border p-4 shadow rounded flex flex-col h-[450px]"
+                  >
+                    <img
+                      src={book.image}
+                      alt={book.name}
+                      className="w-full h-48 object-cover rounded mb-4"
+                    />
+                    <div className="flex-grow">
+                      <h2 className="text-xl font-semibold">{book.title}</h2>
+                      <p>Author: {book.author}</p>
+                      <p>Category: {book.category}</p>
+                      <p>Quantity: {book.quantity}</p>
+                      <div className="flex items-center gap-2 mt-2">
+                        <ReactStars
+                          count={5}
+                          value={book.rating}
+                          size={24}
+                          edit={false}
+                          activeColor="#ffd700"
+                          isHalf={true}
+                        />
+                        <span>({book.rating})</span>
+                      </div>
+                    </div>
+                    <button
+                      className={`font-semibold w-full py-1 px-4 rounded transition mt-2 ${
+                        book.email === user?.email
+                          ? "bg-purple text-white hover:bg-purple-dark"
+                          : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                      }`}
+                      onClick={() =>
+                        book.email === user?.email &&
+                        navigate(`/update-book/${book._id}`)
+                      }
+                      disabled={book.email !== user?.email}
+                    >
+                      Update
+                    </button>
+                  </div>
+                ))}
               </div>
             )}
           </>

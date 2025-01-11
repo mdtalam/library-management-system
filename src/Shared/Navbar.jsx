@@ -180,7 +180,7 @@ const Navbar = () => {
           <li>
             <button
               onClick={toggleTheme}
-              className="text-xl bg-purple text-white px-4 py-2 rounded transition flex items-center"
+              className="text-xl bg-orange text-white px-4 py-2 rounded transition flex items-center"
             >
               {theme === "light" ? <FaMoon /> : <FaSun />}
             </button>

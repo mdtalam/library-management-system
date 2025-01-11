@@ -1,4 +1,4 @@
-import 'animate.css';
+import "animate.css";
 import { motion } from "motion/react";
 import { useNavigate } from "react-router-dom";
 
@@ -32,8 +32,8 @@ const categories = [
 const BookCategories = () => {
   const navigate = useNavigate();
   return (
-    <div className="container mx-auto px-4 py-12 mt-10">
-      <h2 className="animate__animated animate__zoomIn text-3xl font-bold text-center mb-4 text-purple">
+    <div className="container mx-auto px-4 pt-12 mt-6">
+      <h2 className="animate__animated animate__zoomIn text-3xl font-bold text-center mb-4">
         Dive Into Our Collections
       </h2>
       <p className="animate__animated animate__zoomIn text-lg text-center mb-8">
@@ -42,13 +42,10 @@ const BookCategories = () => {
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {categories.map((category, index) => (
-          <motion.div
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            onHoverStart={() => console.log("hover started!")}
-            onClick={() => navigate(category.route)}
+          <div
+            // onClick={() => navigate(category.route)}
             key={index}
-            className="animate__animated animate__zoomIn relative h-48 rounded-lg overflow-hidden shadow-lg group cursor-pointer"
+            className=" relative h-48 rounded-lg overflow-hidden shadow-lg group cursor-pointer"
             style={{
               backgroundImage: `url(${category.image})`,
               backgroundSize: "cover",
@@ -59,8 +56,17 @@ const BookCategories = () => {
             <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-4 text-center">
               <h3 className="text-xl font-bold mb-2">{category.category}</h3>
               <p className="text-md font-bold">{category.subtitle}</p>
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                onHoverStart={() => console.log("hover started!")}
+                onClick={() => navigate(category.route)}
+                className="bg-orange animate__animated animate__zoomIn py-1 px-4 rounded-md mt-4 hover:bg-lightOrange"
+              >
+                See More
+              </motion.button>
             </div>
-          </motion.div>
+          </div>
         ))}
       </div>
     </div>

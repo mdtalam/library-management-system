@@ -6,9 +6,9 @@ const Insights = () => {
   const [counterOn, setCounterOn] = useState(false);
 
   return (
-    <div className="py-12 mt-10 mb-10">
+    <div className="pt-12 mt-6">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-4 text-purple">
+        <h2 className="text-3xl font-bold text-center mb-4">
           Library Insights
         </h2>
         <p className='text-lg text-center mb-8'>Discover fascinating library trends, book reviews, and expert recommendations to enrich your reading journey and expand your knowledge.</p>

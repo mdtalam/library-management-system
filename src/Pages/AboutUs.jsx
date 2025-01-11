@@ -23,11 +23,11 @@ const AboutUs = () => {
   };
   return (
     <div>
-      <div className="container mx-auto py-10 mt-[104px]">
-        <h1 className="text-4xl font-bold text-purple mb-8">About Us</h1>
+      <div className="container mx-auto py-10 px-4 mt-[104px]">
+        <h1 className="text-4xl font-bold mb-8">About Us</h1>
 
-        <div className="bg-white shadow-lg p-8 rounded-lg">
-          <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+        <div className="shadow-lg p-8 rounded-lg">
+          <p className="text-lg mb-6 leading-relaxed">
             Welcome to our Library Management System! Our goal is to provide a
             seamless and efficient platform for managing library resources,
             ensuring that students, teachers, and library staff have easy access
@@ -37,7 +37,7 @@ const AboutUs = () => {
           <h2 className="text-2xl font-semibold text-dark-gray mb-4">
             Our Mission
           </h2>
-          <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+          <p className="text-lg mb-6 leading-relaxed">
             Our mission is to cultivate a culture of learning and knowledge
             sharing by offering a well-organized and user-friendly library
             system. We strive to empower users by simplifying the process of
@@ -48,7 +48,7 @@ const AboutUs = () => {
           <h2 className="text-2xl font-semibold text-dark-gray mb-4">
             Key Features
           </h2>
-          <ul className="list-disc pl-6 text-lg text-gray-700 leading-relaxed">
+          <ul className="list-disc pl-6 text-lg leading-relaxed">
             <li>Easy book search and categorization</li>
             <li>Real-time tracking of borrowed and returned books</li>
             <li>User authentication for personalized experiences</li>
@@ -61,11 +61,11 @@ const AboutUs = () => {
         
       </div>
       {/* Contact Us Section */}
-      <div className="bg-white shadow-lg p-8 rounded-lg">
+      <div className="shadow-lg p-8 rounded-lg">
         <h2 className="text-3xl text-center font-semibold text-dark-gray mb-6">
           Contact Us
         </h2>
-        <p className="text-lg text-center text-gray-700 mb-6">
+        <p className="text-lg text-center mb-6">
           Have questions or feedback? Fill out the form below, and we’ll get
           back to you as soon as possible.
         </p>
@@ -73,7 +73,7 @@ const AboutUs = () => {
         {/* Contact Form */}
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-gray-600 mb-2">Name</label>
+            <label className="block mb-2">Name</label>
             <input
               type="text"
               value={name}
@@ -85,7 +85,7 @@ const AboutUs = () => {
           </div>
 
           <div>
-            <label className="block text-gray-600 mb-2">Email</label>
+            <label className="block mb-2">Email</label>
             <input
               type="email"
               value={email}
@@ -97,7 +97,7 @@ const AboutUs = () => {
           </div>
 
           <div>
-            <label className="block text-gray-600 mb-2">Message</label>
+            <label className="block mb-2">Message</label>
             <textarea
               value={message}
               onChange={(e) => setMessage(e.target.value)}

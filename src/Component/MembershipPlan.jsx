@@ -30,12 +30,12 @@ const MembershipPlans = () => {
     ];
   
     return (
-      <section className="py-12">
+      <section className="pt-12 mt-6 mb-12">
         <div className="container mx-auto px-6 text-center">
-          <h2 className="text-3xl font-bold text-purple mb-4">
+          <h2 className="text-3xl font-bold mb-4">
             Membership Plans
           </h2>
-          <p className="text-lg text-gray-600 mb-8">
+          <p className="text-lg mb-8">
             Choose the membership plan that suits your reading habits. Enjoy exclusive benefits, access to a wide range of resources, and tailored privileges for every reader.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
